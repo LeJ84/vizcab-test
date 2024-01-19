@@ -4,8 +4,10 @@ React + Redux toolkit + Typescript + Tailwind project run with Vite.
 
 To run this project
 
+```
 npm i (to install dependencies)
 npm run dev
+```
 
 ## Améliorations
 
