@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
+const BASE_URL = "http://localhost:3000";
 const DEFAULT_SORTING = "carbon_emission_per_square_meter";
 
 export interface Building {
@@ -33,9 +34,7 @@ const initialState: BuildingsState = {
 export const fetchBuildings = createAsyncThunk(
   "posts/fetchBuildings",
   async () => {
-    const res = await fetch("http://localhost:3000").then((data) =>
-      data.json()
-    );
+    const res = await fetch(BASE_URL).then((data) => data.json());
     return res;
   }
 );

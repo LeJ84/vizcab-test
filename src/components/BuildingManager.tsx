@@ -1,5 +1,6 @@
 import BuildingCard from "./BuildingCard";
 import BuildingSorting from "./BuildingSorting";
+import Pagination from "./Pagination";
 import { useAppSelector } from "../hooks";
 import Loader from "./Loader";
 
@@ -11,9 +12,16 @@ function BuildingManager() {
   const currentSorting = useAppSelector(
     (state) => state.buildings.currentSorting
   );
+  const currentPage = useAppSelector((state) => state.buildings.currentPage);
 
   const sortedBuildings = [...buildings].sort((a, b) =>
     a[currentSorting] > b[currentSorting] ? 1 : -1
+  );
+
+  const startingIndex = (currentPage - 1) * NB_BY_PAGE;
+  const paginatedBuildings = sortedBuildings.slice(
+    startingIndex,
+    startingIndex + NB_BY_PAGE
   );
 
   if (loading)
@@ -32,10 +40,11 @@ function BuildingManager() {
       ) : (
         <>
           <section className="grid gap-5 flex-wrap pt-10 grid-cols-auto-fill-250">
-            {sortedBuildings.map((building) => (
+            {paginatedBuildings.map((building) => (
               <BuildingCard building={building} key={building.id} />
             ))}
           </section>
+          <Pagination />
         </>
       )}
     </>
